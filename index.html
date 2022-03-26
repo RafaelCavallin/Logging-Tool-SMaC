@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+
+  <title>Logging Tool SMaC</title>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-toggle="modal" data-target="#osimage">OS Image</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-toggle="modal" data-target="#cpfinstructions">CPF Instructions</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-11 mx-auto mt-2 mb-3">
+
+        <div class="card bg-light my-2">
+          <h5 class="card-header">Logging Tool SMaC</h5>
+          <div class="card-body">
+            <form id="formTool" action="" method="post">
+              <div class="form-group">
+                <label for="issue" class="lead">Issue:</label><img src="img/questionMark.png" width="16px" alt="Ajuda"
+                  title="Description of the problem / situation the customer is facing." class="ml-2">
+                <textarea name="issue" id="issue" class="form-control" rows="4" required></textarea>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-3">
+                  <label for="okb" class="lead">OKB:</label>
+                  <input type="text" name="okb" id="okb" class="form-control" onblur="insertOkbToLog()">
+                </div>
+                <div class="form-group col-9">
+                  <label for="okb" class="lead">Select</label>
+                  <select class="form-control" id="okb_selected" onblur="openOKB()">
+                    <option value="0">...</option>
+                    <option value="SLN297602">GR - No Audio or Distorted Audio Troubleshooting for Windows 7, 8 and 10</option>
+                    <option value="SLN302606">GR - Thermal / Heat Troubleshooting for Windows 7, 8 and 10</option>
+                    <option value="SLN302274">GR - Keyboard Troubleshooting for Windows 7, 8 and 10</option>
+                    <option value="SLN301958">GR - Touchpad/Trackstick Troubleshooting for Windows Laptops</option>
+                    <option value="SLN303904">GR - Noise Issues Troubleshooting</option>
+                    <option value="SLN301965">GR - USB Troubleshooting for Windows 7, 8 and 10</option>
+                    <option value="SLN301952">GR - AC Adapter Troubleshooting for Windows 7, 8 and 10</option>
+                    <option value="SLN297609">GR - No Video and Distorted Video Troubleshooting for Laptops</option>
+                    <option value="SLN297603">GR - No Boot Troubleshooting in Windows 7, 8 and 10</option>
+                    <option value="SLN297597">GR - Hard Drive Troubleshooting for Desktops and Laptops</option>
+                    <option value="SLN297848">GR - Inspiron Laptop No POST Troubleshooting</option>
+                    <option value="SLN297606">GR - No Power Laptop Troubleshooting for Inspiron and Latitude Laptops, Alienware, Vostro, XPS and Precision Workstations</option>
+                    <option value="SLN309520">GR - Basic Blue Screen Troubleshooting</option>
+                    <option value="PNP18762">Scope of Support Boundaries for Basic Warranty Customers - Dell EMEA/APJ Policy (Client Support)</option>
+                    <option value="SLN309432">GR - Basic Slow Performance, Lockup and Freeze Hardware Troubleshooting</option>
+                    <option value="SLN311635">Social Media Brasil - Políticas e Procedimentos</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="troubleshooting" class="lead">Troubleshooting:</label><img src="img/questionMark.png" width="16px"
+                  alt="Ajuda" title="Field to increment as diagnosis occurs. It is essential to enter the OKB, which will be the “north” of the deal."
+                  class="ml-2">
+                <textarea name="troubleshooting" id="troubleshooting" class="form-control" rows="11" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="actionPlan" class="lead">Action Plan:</label><img src="img/questionMark.png" width="16px"
+                  alt="Ajuda" title="Field where we will enter what the action plan for the case. Ex: DPS opening, system re-installation, etc."
+                  class="ml-2">
+                <textarea name="actionPlan" id="actionPlan" class="form-control" rows="5" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="conclusions" class="lead">Conclusion:</label><img src="img/questionMark.png" width="16px"
+                  alt="Ajuda" title="Field to update as soon as the solution is flagged (confirmation of functionality, confirmation that the problem is out of scope, etc.)."
+                  class="ml-2">
+                <textarea name="conclusions" id="conclusions" class="form-control" rows="5"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="historyDPS" class="lead">Dispatch history:</label><img src="img/questionMark.png" width="16px"
+                  alt="Ajuda" title="Case call history." class="ml-2">
+                <textarea name="historyDPS" id="historyDPS" class="form-control" rows="5"></textarea>
+              </div>
+
+              <div class="form-group">
+                <input type="checkbox" name="falhaAdicional" id="falhaAdicional">
+                <label for="falhaAdicional" class="lead">Existance of additional failure checked</label><br />
+
+                <input type="checkbox" name="backup" id="backup">
+                <label for="backup" class="lead">Is the customer aware of backup? (If necessary)</label><br />
+
+                <input type="checkbox" name="nf" id="nf">
+                <label for="nf" class="lead">Invoice requested. (If necessary)</label>
+              </div>
+  
+              <textarea style="margin-left: -2500px;" cols="1" rows="1" name="logToClipboard" id="logToClipboard"></textarea>
+              <button type="submit" id="submitCopiarLog" class="btn btn-primary btn-lg btn-block">Copy log</button>
+            </form>
+          </div><!-- /card-body -->
+        </div><!-- /card -->
+
+      </div><!-- /col -->
+    </div><!-- /row -->
+
+    <div class="alert alert-success col-sm-12 col-md-11 mx-auto d-none" id="alertCopied" role="alert">
+      Log was copied successfully.
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 col-md-11 mx-auto mb-3">
+
+        <div class="card bg-light my-2">
+          <h5 class="card-header">Zip code search (Brazil only)</h5>
+          <div class="card-body">
+            <form method="get" action="">
+
+              <div class="row">
+                <div class="col-5">
+                  <div class="form-group">
+                    <label class="lead">Zip code:</label><img src="img/questionMark.png" width="16px" alt="Ajuda" title="Enter the zip code and press TAB or click outside the zip code field."
+                      class="ml-2">
+                    <input name="cep" type="text" id="cep" class="form-control" value="" maxlength="9" onblur="searchCEP(this.value);" />
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <label class="lead">Street:</label>
+                <input name="rua" class="form-control" type="text" id="rua" disabled />
+              </div>
+
+              <div class="row">
+
+                <div class="col-5">
+                  <div class="form-group">
+                    <label class="lead">Neighborhood:</label>
+                    <input name="bairro" class="form-control" type="text" id="bairro" size="40" disabled />
+                  </div>
+                </div>
+
+                <div class="col-5">
+                  <div class="form-group">
+                    <label class="lead">City:</label>
+                    <input name="cidade" class="form-control" type="text" id="cidade" size="40" disabled />
+                  </div>
+                </div><!-- /col form -->
+
+                <div class="col-2">
+                  <div class="form-group">
+                    <label class="lead">State:</label>
+                    <input name="uf" class="form-control" type="text" id="uf" size="2" disabled />
+                  </div>
+                </div><!-- /col form -->
+
+              </div><!-- /row form -->
+
+
+
+            </form>
+          </div><!-- /card-body -->
+        </div><!-- /card -->
+
+      </div><!-- /col -->
+    </div><!-- /row -->
+
+  </div><!-- /container -->
+
+  <!-- Modal OS Image-->
+  <div class="modal fade" id="osimage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Template OS IMAGE</h5>
+          <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>-->
+        </div>
+        <div class="modal-body">
+          <form id="osForm" class="form-horizontal">
+            <div class="form-group">
+              <label class="col-10 control-label" for="selectbasic">Architecture:</label>
+              <div class="col-12">
+                <select id="arq" name="selectbasic" class="form-control" required>
+                  <option value=""></option>
+                  <option value="32 Bits">32 Bits</option>
+                  <option value="64 Bits">64 Bits</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-10 control-label" for="selectbasic">Language:</label>
+              <div class="col-12">
+                <select id="ling" name="selectbasic" class="form-control" required>
+                  <option value=""></option>
+                  <option value="Brazilian Portuguese">Brazilian Portuguese</option>
+                  <option value="English">English</option>
+                  <option value="Spanish">Spanish</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-10 control-label" for="textinput">Model System (Manually Insert):</label>
+              <div class="col-12">
+                <input id="model" name="textinput" type="text" placeholder="Inspiron 7460" class="form-control input-md"
+                  required>
+              </div>
+            </div>
+
+            <div class="alert alert-warning col-12">
+              <strong>ATTENTION!</strong> <br />
+              For orders that inform operating systems <strong>"Win10 Home HighEnd BPOR”</strong> or <strong>“Win10
+                EM BPOR”</strong>, the Operating System and Version to be inserted in the logistics notes must be Win10
+              Home SL BPOR.
+              <br />
+              <strong>Example: </strong><br />
+              <small>OS Download: 64 Bits, Language: Brazilian Portuguese, Model: Optiplex 3050, OS: Windows 10 Home
+                Single Language</small>
+            </div>
+
+            <div class="form-group">
+              <label class="col-12 control-label" for="selectbasic">Operating System and Version:</label>
+              <div class="col-12">
+                <select required id="system" name="selectbasic" class="form-control">
+                  <option value=""></option>
+                  <option value="Windows 10 Home">Windows 10 Home</option>
+                  <option value="Windows 10 Home Single Language">Windows 10 Home Single Language*</option>
+                  <option value="Windows 10 Professional">Windows 10 Professional</option>
+                </select>
+              </div>
+            </div>
+
+            <textarea style="margin-left: -2500px;" cols="1" rows="1" name="logOsToClipboard" id="logOsToClipboard"></textarea>
+
+            <!-- Button -->
+            <div class="form-group">
+              <div class="col-10">
+                <button type="submit" id="OSbtn" class="btn btn-primary">Generate OS Template IMAGE</button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <div class="alert alert-success col-sm-7 col-md-7 mx-auto d-none" id="alertCopiedOsImage" role="alert">
+            Log was copied successfully.
+          </div>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal CPF Instructions-->
+  <div class="modal fade" id="cpfinstructions" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Template Parts Only (Brazil only)</h5>
+          <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button> -->
+        </div>
+        <div class="modal-body">
+          <form id="formCpf">
+            <div class="form-row">
+              <div class="form-group col-10">
+                <input type="checkbox" name="ckbCpf" id="ckbCpf" checked>
+                <label for="ckbCpf" class="lead">Customer?</label>
+
+                <input type="checkbox" name="partsOnly" id="partsOnly" class="ml-3">
+                <label for="partsOnly" class="lead">DPS Parts Only?</label>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-4">
+                <label for="cpfField" class="lead">CPF/CNPJ:</label>
+                <input type="text" name="cpfField" id="cpfField" class="form-control" required>
+              </div>
+
+              <div class="form-group col-4">
+                <label for="ie" class="lead">I.E.</label>
+                <input type="text" name="ie" id="ie" class="form-control" value="ISENTO">
+              </div>
+
+              <div class="form-group col-4">
+                <label for="bdate" class="lead">BDATE</label>
+                <input type="text" name="bdate" id="bdate" class="form-control" required>
+              </div>
+              <textarea style="margin-left: -2500px;" cols="1" rows="1" name="logCPFToClipboard" id="logCPFToClipboard"></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-12">
+                  <button type="submit" id="CPFbtn" class="btn btn-primary">Generate Template</button>
+              </div>
+            </div>
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <div class="alert alert-success col-sm-7 col-md-7 mx-auto d-none" id="alertCopiedcpf" role="alert">
+            Log was copied successfully.
+          </div>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript" src="js/popper.js"></script>
+  <script type="text/javascript" src="js/jquery-mask.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script src="js/main.js" type="text/javascript"></script>
+  <script src="js/correios.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    //$("#cpfField").mask("00000000000");
+    $("#bdate").mask("00/00/0000");
+
+
+    $("#ckbCpf").click(function () {
+      var isCPF = $("#bdate");
+      isCPF.prop("disabled", !isCPF.prop("disabled"));
+    });   
+  </script>
+
+</body>
+
+</html>
